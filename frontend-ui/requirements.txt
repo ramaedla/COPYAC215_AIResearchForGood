@@ -1,5 +1,6 @@
 google-cloud-storage
 langchain-community
+pysqlite3-binary
 langchain_chroma
 langchain_huggingface
 vertexai

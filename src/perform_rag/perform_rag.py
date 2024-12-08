@@ -1,4 +1,4 @@
-import os
+import os, sqlite3
 import streamlit as st
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter

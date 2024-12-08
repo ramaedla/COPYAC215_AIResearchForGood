@@ -4,4 +4,3 @@ langchain-chroma
 langchain-huggingface
 vertexai
 streamlit
-pysqlite3

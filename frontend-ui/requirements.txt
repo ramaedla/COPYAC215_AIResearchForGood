@@ -1,6 +1,10 @@
 google-cloud-storage
 langchain-community
-langchain-chroma
-langchain-huggingface
+langchain_chroma
+langchain_huggingface
 vertexai
-streamlit
+streamlit==1.40.2
+chromadb
+sentence-transformers
+
+

@@ -1,0 +1,6 @@
+google-cloud-storage
+langchain-community
+langchain-chroma
+langchain-huggingface
+vertexai
+streamlit

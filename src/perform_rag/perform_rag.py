@@ -12,8 +12,8 @@ from vertexai.generative_models import GenerativeModel
 from google.oauth2 import service_account
 
 
-def download_files_from_bucket(bucket_name, folder_prefix, destination_folder):
-    storage_client = storage.Client()
+def download_files_from_bucket(bucket_name, folder_prefix, destination_folder,creds):
+    storage_client = storage.Client(credentials=creds)
     bucket = storage_client.bucket(bucket_name)
 
     if not os.path.exists(destination_folder):
@@ -96,7 +96,7 @@ def main(query):
 
     #query = "AI for social impact"
 
-    download_files_from_bucket(bucket_name, folder_prefix, destination_folder)
+    download_files_from_bucket(bucket_name, folder_prefix, destination_folder, creds)
     documents = retrieve_documents(query, persist_directory, model_name)
     # print(documents)
     answer = generate_answer_google(documents, query, PROJECT_ID, LOCATION, MODEL_ID, creds)

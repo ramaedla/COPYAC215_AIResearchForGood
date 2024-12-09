@@ -6,7 +6,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src', 'perform_rag')))
 from perform_rag import main as perform_rag_main
 
-st.write(st.secrets['secrets_str'])
+print("helo")
+st.write(st.secrets['private_key_id'])
 
 # Streamlit UI
 st.title("Global Tech Colab For Good: A Platform for Non-Profits and Research Groups")

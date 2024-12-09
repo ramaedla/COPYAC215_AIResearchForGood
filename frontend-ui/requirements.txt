@@ -4,7 +4,7 @@ langchain_chroma
 langchain_huggingface
 vertexai
 streamlit
-chromadb
+chromadb==0.3.29
 sentence-transformers
 
 

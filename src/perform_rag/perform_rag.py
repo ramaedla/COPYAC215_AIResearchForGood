@@ -9,6 +9,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from google.cloud import storage
 import vertexai
 from vertexai.generative_models import GenerativeModel
+from google.oauth2 import service_account
 
 
 def download_files_from_bucket(bucket_name, folder_prefix, destination_folder):

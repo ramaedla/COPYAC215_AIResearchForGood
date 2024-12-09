@@ -6,6 +6,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src', 'perform_rag')))
 from perform_rag import main as perform_rag_main
 
+st.write(st.secrets['secrets_str'])
+
 # Streamlit UI
 st.title("Global Tech Colab For Good: A Platform for Non-Profits and Research Groups")
 st.write("Enter a problem statement to find relevant tech research papers and get an explanation for bonus!")

@@ -46,7 +46,7 @@ def retrieve_documents(query, persist_directory, model_name):
 
     return documents
 
-def generate_answer_google(documents, query, project_id, location, model_id):
+def generate_answer_google(documents, query, project_id, location, model_id, creds):
     documents_combined = "\n\n".join(documents)
     prompt = f"""\nYou are a helpful assistant working for Global Tech Colab For Good, an organization that helps connect non-profit organizations to relevant technical research papers. 
             The following is a query from the non-profit:
@@ -56,7 +56,7 @@ def generate_answer_google(documents, query, project_id, location, model_id):
             Your job is to provide in a digestible manner the title of the paper(s) retrieved and an explanation for how the paper(s) can be used by the non-profit to help with their query. 
             If the title isn't available, make up a relevant title. Even if the papers dont seem useful to the query, do not say that. Try to be as useful to the non-profit and remember that they are the reader of your response."""
 
-    vertexai.init(project=project_id, location="us-central1")
+    vertexai.init(project=project_id, location="us-central1", credentials=creds)
 
     model = GenerativeModel("gemini-1.5-flash")
 
@@ -71,21 +71,8 @@ def main(query):
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../../../secrets/ai-research-for-good-b6f4173936f9.json"
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] =  st.secrets
     
-    secrets_dict = dict(st.secrets)
-
-    if "private_key" in secrets_dict:
-        secrets_dict["private_key"] = secrets_dict["private_key"].replace("\\n", "\n")
-
-
-    # Convert the dictionary to JSON
-    json_data = json.dumps(secrets_dict, indent=4)
-    
-    # Write to a temporary file
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
-        temp_file.write(json_data.encode('utf-8'))
-        temp_file_path = temp_file.name
-
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_file_path
+    info = json.loads(st.secrets['secrets_str'])
+    creds = service_account.Credentials.from_service_account_info(info)
 
     bucket_name = 'paper-rec-bucket'
     destination_folder = 'paper_vector_db'
@@ -102,7 +89,7 @@ def main(query):
     download_files_from_bucket(bucket_name, folder_prefix, destination_folder)
     documents = retrieve_documents(query, persist_directory, model_name)
     # print(documents)
-    answer = generate_answer_google(documents, query, PROJECT_ID, LOCATION, MODEL_ID)
+    answer = generate_answer_google(documents, query, PROJECT_ID, LOCATION, MODEL_ID, creds)
 
     return answer
 

@@ -70,9 +70,12 @@ def generate_answer_google(documents, query, project_id, location, model_id):
 def main(query):
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../../../secrets/ai-research-for-good-b6f4173936f9.json"
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] =  st.secrets
-    parsed_toml=st.secrets
-    json_data = json.dumps(parsed_toml, indent=4)
+    
+    secrets_dict = dict(st.secrets)
 
+    # Convert the dictionary to JSON
+    json_data = json.dumps(secrets_dict, indent=4)
+    
     # Write to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
         temp_file.write(json_data.encode('utf-8'))

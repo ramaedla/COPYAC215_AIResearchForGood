@@ -71,7 +71,7 @@ def main(query):
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../../../secrets/ai-research-for-good-b6f4173936f9.json"
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] =  st.secrets
     
-    info = json.loads(st.secrets['secrets_str'])
+    info = json.loads(st.secrets)
     creds = service_account.Credentials.from_service_account_info(info)
 
     bucket_name = 'paper-rec-bucket'

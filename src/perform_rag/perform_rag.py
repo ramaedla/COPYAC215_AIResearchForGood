@@ -82,7 +82,7 @@ def main(query):
     info = json.dumps(secrets_dict, indent=4)
     
     #info = json.loads(st.secrets)
-    creds = service_account.Credentials.from_service_account_info(info)
+    creds = service_account.Credentials.from_service_account_info(secrets_dict)
 
     bucket_name = 'paper-rec-bucket'
     destination_folder = 'paper_vector_db'

@@ -73,6 +73,10 @@ def main(query):
     
     secrets_dict = dict(st.secrets)
 
+    if "private_key" in secrets_dict:
+    secrets_dict["private_key"] = secrets_dict["private_key"].replace("\\n", "\n")
+
+
     # Convert the dictionary to JSON
     json_data = json.dumps(secrets_dict, indent=4)
     

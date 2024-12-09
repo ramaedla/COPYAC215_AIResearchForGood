@@ -1,4 +1,6 @@
 import os, sqlite3
+import json
+import tempfile
 import streamlit as st
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
@@ -67,7 +69,16 @@ def generate_answer_google(documents, query, project_id, location, model_id):
 
 def main(query):
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../../../secrets/ai-research-for-good-b6f4173936f9.json"
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] =  st.secrets
+    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] =  st.secrets
+    parsed_toml=st.secrets
+    json_data = json.dumps(parsed_toml, indent=4)
+
+    # Write to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
+        temp_file.write(json_data.encode('utf-8'))
+        temp_file_path = temp_file.name
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_file_path
 
     bucket_name = 'paper-rec-bucket'
     destination_folder = 'paper_vector_db'
